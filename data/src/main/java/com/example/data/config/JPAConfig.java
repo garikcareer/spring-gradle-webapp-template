@@ -3,6 +3,7 @@ package com.example.data.config;
 import javax.sql.DataSource;
 
 import jakarta.persistence.EntityManagerFactory;
+import org.flywaydb.core.Flyway;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -88,19 +89,38 @@ public class JPAConfig {
    * @return configured LocalContainerEntityManagerFactoryBean
    */
   @Bean
-  public LocalContainerEntityManagerFactoryBean entityManagerFactory(DataSource dataSource) {
+  public LocalContainerEntityManagerFactoryBean entityManagerFactory(DataSource dataSource, Flyway flyway) {
     LocalContainerEntityManagerFactoryBean em = new LocalContainerEntityManagerFactoryBean();
     em.setDataSource(dataSource);
     em.setPackagesToScan("com.example.data.entity");
-    em.setJpaProperties(new Properties() {{
-      put("hibernate.hbm2ddl.auto", "none");
-      put("hibernate.show_sql", "true");
-      put("hibernate.format_sql", "true");
-      put("hibernate.transaction.jta.platform", "org.hibernate.service.jta.platform.internal.JBossAppServerJtaPlatform");
-    }});
+
+    Properties properties = new Properties();
+    properties.put("hibernate.hbm2ddl.auto", "none");
+    properties.put("hibernate.show_sql", "true");
+    properties.put("hibernate.format_sql", "true");
+    properties.put("hibernate.connection.autocommit", "false");
+    properties.put("hibernate.connection.release_mode", "after_transaction");
+    properties.put("hibernate.connection.driver_class", "org.h2.Driver");
+    properties.put("hibernate.connection.url", "jdbc:h2:mem:testdb");
+    properties.put("hibernate.transaction.jta.platform", "org.hibernate.service.jta.platform.internal.JBossAppServerJtaPlatform");
+
+
+    em.setJpaProperties(properties);
     em.setJpaVendorAdapter(new HibernateJpaVendorAdapter());
+
+    flyway.migrate();
     return em;
   }
+
+    @Bean(initMethod = "migrate")
+    public Flyway flyway(DataSource dataSource) {
+        return Flyway.configure()
+                .dataSource(dataSource)
+                .locations("classpath:db/migration")
+                .validateOnMigrate(true)
+                .schemas("company")
+                .load();
+    }
 
   /**
    * Configures and provides a JpaTransactionManager bean to enable declarative transaction

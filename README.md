@@ -1,4 +1,4 @@
-# spring-gradle-common-template
+# spring-gradle-webapp-template
 ## Table of Contents
 - [Introduction](#introduction)
 - [Features](#features)
