@@ -5,7 +5,7 @@
 out/
 
 ### Gradle ###
-.gradle-cache/
+.gradle/
 **/build/
 **/.gradle/
 
@@ -13,15 +13,16 @@ out/
 *.class
 *.log
 
-# Compiled class files
+# Maven-style build output
 **/target/
 
-### Other ###
-/bin/
-/tmp/
-/logs/
+### Wrapper
+!gradlew
+!gradlew.bat
+!gradle/wrapper/gradle-wrapper.jar
+!gradle/wrapper/gradle-wrapper.properties
 
-# Ignore generated
+### Distribution Artifacts ###
 *.jar
 *.war
 *.nar
@@ -29,3 +30,8 @@ out/
 *.zip
 *.tar.gz
 *.rar
+
+### Temp and Logs ###
+/bin/
+/tmp/
+/logs/
