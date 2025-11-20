@@ -1,15 +1,15 @@
 package com.example.companycompass.controller;
 
+import com.example.companycompass.model.Company;
 import com.example.companycompass.service.CompanyService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
 @Controller
 public class CompanyPageController {
+
     private final CompanyService companyService;
 
     @Autowired
@@ -17,46 +17,70 @@ public class CompanyPageController {
         this.companyService = companyService;
     }
 
+    // 1. LIST COMPANIES
     @GetMapping("/")
-    public ModelAndView index() {
-        ModelAndView modelAndView = new ModelAndView("layout");
-        modelAndView.addObject("content", "index");
-        modelAndView.addObject("pageTitle", "Home");
-        return modelAndView;
+    public ModelAndView getAllCompanies() {
+        ModelAndView mav = new ModelAndView("layout");
+        mav.addObject("content", "company");
+        mav.addObject("pageTitle", "Companies");
+        mav.addObject("companyList", companyService.getCompanies());
+        return mav;
     }
 
-    @GetMapping("/")
-    @ModelAttribute
-    public ModelAndView getAllCompanies(Model model) {
-        model.addAttribute("content", "company");
-        model.addAttribute("pageTitle", "Companies");
-        model.addAttribute("companyList", companyService.getCompanies());
-        return new ModelAndView("layout");
+    // 2. SHOW ADD FORM
+    @GetMapping("/add")
+    public ModelAndView addCompany() {
+        ModelAndView mav = new ModelAndView("layout");
+        mav.addObject("content", "addcompany");
+        mav.addObject("pageTitle", "Add Company");
+        mav.addObject("company", new Company());
+        return mav;
     }
 
-    @GetMapping("/web/company/add")
-    public ModelAndView  addCompany() {
-        ModelAndView modelAndView = new ModelAndView("layout");
-        modelAndView.addObject("content", "addcompany");
-        modelAndView.addObject("pageTitle", "Add Company");
-        return modelAndView;
+    // 3. SHOW EDIT FORM
+    // FIX: Added ("id") to @PathVariable so Spring knows which URL part to grab
+    @GetMapping("/edit/{id}")
+    public ModelAndView editCompany(@PathVariable("id") Long id) {
+        ModelAndView mav = new ModelAndView("layout");
+        mav.addObject("content", "addcompany");
+        mav.addObject("pageTitle", "Edit Company");
+        mav.addObject("company", companyService.getCompanyById(id));
+        return mav;
     }
 
+    // 4. SAVE (Handles both Add and Edit)
+    @PostMapping("/save")
+    public String saveCompany(@ModelAttribute Company company) {
+        if (company.getId() == null) {
+            companyService.addCompany(company);
+        } else {
+            companyService.updateCompany(company);
+        }
+        return "redirect:/";
+    }
+
+    // 5. DELETE
+    // FIX: Added ("id") to @PathVariable
+    @GetMapping("/delete/{id}")
+    public String deleteCompany(@PathVariable("id") Long id) {
+        companyService.deleteCompany(id);
+        return "redirect:/";
+    }
+
+    // Navigation Helpers
     @GetMapping("/about")
-    @ModelAttribute("layout")
-    public ModelAndView  about() {
-        ModelAndView modelAndView = new ModelAndView("layout");
-        modelAndView.addObject("content", "about");
-        modelAndView.addObject("pageTitle", "About");
-        return modelAndView;
+    public ModelAndView about() {
+        ModelAndView mav = new ModelAndView("layout");
+        mav.addObject("content", "about");
+        mav.addObject("pageTitle", "About");
+        return mav;
     }
 
     @GetMapping("/contact")
-    @ModelAttribute("layout")
-    public ModelAndView  contact() {
-        ModelAndView modelAndView = new ModelAndView("layout");
-        modelAndView.addObject("content", "contact");
-        modelAndView.addObject("pageTitle", "Contact");
-        return modelAndView;
+    public ModelAndView contact() {
+        ModelAndView mav = new ModelAndView("layout");
+        mav.addObject("content", "contact");
+        mav.addObject("pageTitle", "Contact");
+        return mav;
     }
 }

@@ -2,6 +2,8 @@ package com.example.companycompass;
 
 import com.example.companycompass.config.PersistenceConfig;
 import com.example.companycompass.config.WebConfig;
+import com.example.companycompass.config.SecurityConfig;
+
 import org.apache.catalina.Context;
 import org.apache.catalina.LifecycleException;
 import org.apache.catalina.startup.Tomcat;
@@ -42,7 +44,7 @@ public class CompanyCompassApplication implements WebMvcConfigurer {
     Context context = tomcat.addWebapp(CONTEXT_PATH, new File(WEBAPP_DIR).getAbsolutePath());
 
     AnnotationConfigWebApplicationContext springContext = new AnnotationConfigWebApplicationContext();
-      springContext.register(PersistenceConfig.class, WebConfig.class);
+    springContext.register(SecurityConfig.class, PersistenceConfig.class, WebConfig.class);
 
     DispatcherServlet dispatcherServlet = new DispatcherServlet(springContext);
     Tomcat.addServlet(context, "dispatcherServlet", dispatcherServlet);

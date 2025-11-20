@@ -1,0 +1,208 @@
+/* --- RESET & BASICS --- */
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: #f4f4f9;
+    color: #333;
+    line-height: 1.6;
+    padding-bottom: 50px;
+}
+
+h1, h2 {
+    text-align: center;
+    color: #2c3e50;
+    margin-top: 40px;
+    margin-bottom: 20px;
+}
+
+/* --- LAYOUT --- */
+/* Replaces Bootstrap .container */
+.container {
+    max-width: 1000px;
+    margin: 0 auto; /* Centers the div */
+    padding: 0 20px;
+    width: 100%;
+}
+
+/* Centered card for forms */
+.form-wrapper {
+    max-width: 500px;
+    margin: 0 auto;
+    background: white;
+    padding: 30px;
+    border-radius: 8px;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+}
+
+/* --- TABLES --- */
+.table-styled {
+    width: 100%;
+    border-collapse: collapse;
+    background: white;
+    margin-top: 20px;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+    border-radius: 8px;
+    overflow: hidden; /* Rounds the corners of the table */
+}
+
+.table-styled thead {
+    background-color: #2c3e50;
+    color: white;
+}
+
+.table-styled th, .table-styled td {
+    padding: 12px 15px;
+    text-align: left;
+    border-bottom: 1px solid #dddddd;
+}
+
+.table-styled tbody tr:hover {
+    background-color: #f1f1f1;
+}
+
+/* --- BUTTONS --- */
+.btn {
+    display: inline-block;
+    padding: 10px 20px;
+    text-decoration: none;
+    border-radius: 5px;
+    font-size: 14px;
+    font-weight: bold;
+    border: none;
+    cursor: pointer;
+    transition: background 0.3s;
+    margin-right: 5px;
+    text-align: center;
+}
+
+/* Primary (Blue) - Used for Edit/Submit */
+.btn-primary {
+    background-color: #3498db;
+    color: white;
+}
+.btn-primary:hover {
+    background-color: #2980b9;
+}
+
+/* Danger (Red) - Used for Delete */
+.btn-danger {
+    background-color: #e74c3c;
+    color: white;
+}
+.btn-danger:hover {
+    background-color: #c0392b;
+}
+
+/* Success (Green) - Used for Add New */
+.btn-success {
+    background-color: #27ae60;
+    color: white;
+}
+.btn-success:hover {
+    background-color: #219150;
+}
+
+/* Secondary (Grey) - Used for Cancel */
+.btn-secondary {
+    background-color: #95a5a6;
+    color: white;
+}
+.btn-secondary:hover {
+    background-color: #7f8c8d;
+}
+
+/* Center button container */
+.action-bar {
+    margin-top: 20px;
+    text-align: center;
+}
+
+/* --- FORMS --- */
+.form-group {
+    margin-bottom: 15px;
+}
+
+.form-label {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: bold;
+}
+
+.form-control {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 16px;
+}
+
+.form-control:focus {
+    border-color: #3498db;
+    outline: none;
+}
+
+/* --- NAVIGATION BAR --- */
+.navbar {
+    background-color: #2c3e50; /* Dark Blue */
+    box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+    margin-bottom: 30px;
+    width: 100%;
+}
+
+.navbar-container {
+    max-width: 1000px;
+    margin: 0 auto;
+    padding: 0 20px;
+    height: 60px;
+    display: flex;
+    justify-content: space-between; /* Brand Left, Links Right */
+    align-items: center;
+}
+
+.navbar-brand {
+    color: white;
+    font-size: 24px;
+    font-weight: bold;
+    text-decoration: none;
+}
+
+.navbar-links {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    gap: 20px; /* Space between links */
+}
+
+.navbar-links a {
+    color: #ecf0f1;
+    text-decoration: none;
+    font-size: 16px;
+    font-weight: 500;
+    transition: color 0.3s;
+}
+
+.navbar-links a:hover {
+    color: #3498db; /* Highlight color on hover */
+}
+
+/* --- FOOTER --- */
+.footer {
+    background-color: #2c3e50; /* Dark Blue */
+    color: #bdc3c7;
+    text-align: center;
+    padding: 20px 0;
+    margin-top: 50px;
+    width: 100%;
+    position: relative;
+    bottom: 0;
+}
+
+.footer p {
+    margin: 0;
+}

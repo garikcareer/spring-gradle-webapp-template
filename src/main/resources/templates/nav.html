@@ -1,25 +1,21 @@
 <!-- Navigation Bar -->
-<nav th:fragment="navbarFragment" class="navbar navbar-expand navbar-light bg-dark">
-    <div class="container-fluid">
-        <a class="navbar-brand" href="">CompanyCompass</a>
-        <div class="navbar-nav d-flex justify-content-center align-items-center flex-grow-1">
-            <ul class="navbar-nav ms-0">
-                <li class="nav-item">
-                    <a class="nav-link" th:href="@{/webapp/static}">Home</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" th:href="@{/web/company}">View Companies</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" th:href="@{/web/company/add}">Add New Company</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" th:href="@{/about}">About</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" th:href="@{/contact}">Contact</a>
-                </li>
-            </ul>
-        </div>
+<nav th:fragment="navbarFragment" class="navbar">
+    <div class="navbar-container">
+        <a class="navbar-brand" th:href="@{/}">CompanyCompass</a>
+
+        <ul class="navbar-links">
+            <li>
+                <a th:href="@{/}">Home</a>
+            </li>
+            <li>
+                <a th:href="@{/add}">Add New Company</a>
+            </li>
+            <li>
+                <a th:href="@{/about}">About</a>
+            </li>
+            <li>
+                <a th:href="@{/contact}">Contact</a>
+            </li>
+        </ul>
     </div>
 </nav>

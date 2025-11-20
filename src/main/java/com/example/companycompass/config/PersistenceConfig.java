@@ -81,7 +81,8 @@ public class PersistenceConfig {
         em.setJpaVendorAdapter(new HibernateJpaVendorAdapter());
 
         Properties properties = new Properties();
-        properties.setProperty("hibernate.dialect", "org.hibernate.dialect.H2Dialect");
+        properties.put("hibernate.transaction.jta.platform",
+                "org.hibernate.engine.transaction.jta.platform.internal.NoJtaPlatform");
         properties.setProperty("hibernate.hbm2ddl.auto", "update");
         em.setJpaProperties(properties);
         return em;

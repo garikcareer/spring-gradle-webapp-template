@@ -1,46 +1,32 @@
 <body>
 <div class="container">
-    <h2>Add New Company</h2>
-    <form class="mt-4">
-        <div class="form-group">
-            <label for="name">Company Name:</label>
-            <input type="text" class="form-control" id="name" name="name"
-                   placeholder="Enter company name" required>
-        </div>
-        <div class="form-group">
-            <label for="location">Location:</label>
-            <input type="text" class="form-control" id="location" name="location"
-                   placeholder="Enter location" required>
-        </div>
-        <button type="submit" class="btn btn-primary add-company-btn" th:onclick="'submitForm()'">Add Company</button>
-    </form>
-</div>
+    <h2 th:text="${company.id == null} ? 'Add New Company' : 'Edit Company'">Add Company</h2>
 
-<script th:inline="javascript">
-    $(document).ready(function () {
-        $('.add-company-btn').click(function () {
-            const companyData = {
-                name: $('#name').val(),
-                location: $('#location').val()
-            };
-            submitForm(companyData);
-        });
-    });
-    function submitForm(companyData) {
-        $.ajax({
-            url: '/api/company/add',
-            type: 'POST',
-            contentType: 'application/json',
-            data: JSON.stringify(companyData),
-            success: function (response) {
-                console.log('Successfully added company with id: ' + response.message.id, 'response: ', response);
-                location.reload();
-            },
-            error: function (response) {
-                console.log('Failed to add company. Response: ', response);
-                location.reload();
-            }
-        });
-    }
-</script>
+    <div class="form-wrapper">
+        <form th:action="@{/save}" th:object="${company}" method="post">
+
+            <input type="hidden" th:field="*{id}" />
+
+            <div class="form-group">
+                <label for="name" class="form-label">Company Name:</label>
+                <input type="text" class="form-control" id="name" th:field="*{name}"
+                       placeholder="Enter company name" required>
+            </div>
+
+            <div class="form-group">
+                <label for="location" class="form-label">Location:</label>
+                <input type="text" class="form-control" id="location" th:field="*{location}"
+                       placeholder="Enter location" required>
+            </div>
+
+            <div style="margin-top: 20px;">
+                <button type="submit" class="btn btn-primary" style="width: 100%">Save Company</button>
+            </div>
+
+            <div style="margin-top: 10px;">
+                <a href="/" class="btn btn-danger" style="width: 100%">Cancel</a>
+            </div>
+        </form>
+    </div>
+</div>
 </body>
